@@ -3,7 +3,6 @@ const readline = require('readline').createInterface({
     output: process.stdout
 })
 
-const { resolve } = require('path');
 const App = require('./server/app');
 
 let user = {
@@ -22,7 +21,7 @@ const fetchUsername = () => {
 
 const fetchPassword = () => {
     return new Promise((resolve, reject) => {
-        readline.question('Enter your password: \n', answer => {
+        readline.question('Enter your password: ', answer => {
             user.password = answer;
             resolve();
         });
@@ -31,16 +30,22 @@ const fetchPassword = () => {
 
 const runBot = () => {
     return new Promise((resolve, reject) => {
-        readline.question('Run the instagram bot? (y/n) ', async answer => {
+        readline.question('\nRun the instagram bot? (y/n) ', async answer => {
             if (answer === "y") {
                 await App.openBrowser();
                 await App.setLogin(user.username, user.password);
                 await App.openHashtag('programming');
+                
+                let count = 0;
+
                 setInterval(() => {
-                    App.likePosts()
+                    App.likePosts();
+                    
+                    count++;
+                    console.log(`👍 Liked ${count} posts. `);
                 }, 10001);
             } else {
-                console.log('Cancelling... :(');
+                console.log('Cancelling execution... :(');
             }
         });
     })
