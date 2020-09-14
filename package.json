@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "lint": "npx eslint '**/*.js'"
+    "lint": "npx eslint '**/*.js'",
+    "dev": "nodemon main.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +13,7 @@
     "puppeteer-firefox": "^0.5.1"
   },
   "devDependencies": {
-    "eslint": "^7.9.0"
+    "eslint": "^7.9.0",
+    "nodemon": "^2.0.4"
   }
 }
