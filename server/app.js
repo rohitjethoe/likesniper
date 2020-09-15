@@ -6,7 +6,7 @@ const App = {
     page: null,
     openBrowser: async () => {
         App.browser = await puppeteer.launch({
-            headless: false
+            headless: true
         });
         App.page = await App.browser.newPage();
         await App.page.goto(App.url);
