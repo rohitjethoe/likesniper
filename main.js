@@ -7,7 +7,8 @@ const App = require('./server/app');
 
 let user = {
     username: null,
-    password: null
+    password: null,
+    hashtag: null
 }
 
 const fetchUsername = () => {
@@ -28,13 +29,22 @@ const fetchPassword = () => {
     });
 }
 
+const fetchHashtag = () => {
+    return new Promise((resolve, reject) => {
+        readline.question('Enter your hashtag: ', answer => {
+            user.hashtag = answer;
+            resolve();
+        });
+    });
+}
+
 const runBot = () => {
     return new Promise((resolve, reject) => {
         readline.question('\nRun the instagram bot? (y/n) ', async answer => {
             if (answer === "y") {
                 await App.openBrowser();
                 await App.setLogin(user.username, user.password);
-                await App.openHashtag('programming');
+                await App.openHashtag(user.hashtag);
                 
                 let count = 0;
 
@@ -54,5 +64,6 @@ const runBot = () => {
 (async() => {
     await fetchUsername();
     await fetchPassword();
+    await fetchHashtag();
     await runBot();
 })()
